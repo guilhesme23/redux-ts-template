@@ -1,13 +1,24 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useSelector } from 'react-redux'
 import './App.css'
+import Profile from './components/Profile'
+import Register from './components/Register'
+import { RootState } from './store'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const user = useSelector((state: RootState) => state.user.value)
+
+  const checkUser = () => {
+    if (user.id == null) {
+      return <Register />
+    } else {
+      return <Profile />
+    }
+  }
 
   return (
     <div className="App">
-      <h1>Hello React!</h1>
+      {checkUser()}
     </div>
   )
 }
